@@ -1,0 +1,9 @@
+{
+  "dcf_ticker": "PYPL",
+  "dcf_operating_model": "Equity Model: Net Income. PE Exit",
+  "dcf_exit_multiple": 10.0,
+  "dcf_terminal_growth": 2.0,
+  "dcf_forecast_years": 4,
+  "dcf_discount_rate": 9.7,
+  "dcf_include_tbv": "No"
+}

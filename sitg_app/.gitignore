@@ -8,3 +8,6 @@ __pycache__/
 # Ignore local data or temp files
 data/*.xlsx
 *.pkl
+
+
+secrets.toml
