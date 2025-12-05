@@ -79,6 +79,17 @@ def check_fmp_api_key_configured() -> bool:
 # ======================
 @st.cache_data
 def load_local_financials(ticker: str):
+    # Probeer eerst parquet (kleiner, sneller, staat in git)
+    parquet_file = str(DATA_DIR / "FMP_all_tickers_financials.parquet")
+    if os.path.exists(parquet_file):
+        df = pd.read_parquet(parquet_file)
+        df = df[df["Ticker"].str.upper() == ticker.upper()].copy()
+        for col in ["TTM", "2024", "2023", "2022", "2021", "2020"]:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+        return df if not df.empty else None
+    
+    # Fallback naar Excel (als het bestaat)
     if not os.path.exists(LOCAL_FILE):
         st.error(f"File not found: {LOCAL_FILE}")
         return None
